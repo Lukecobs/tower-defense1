@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - CurrencyUI
+  - Tower
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - EnemyPath
+  - Water
+  - UI
+  - Enemy
+  - Projectile
+  - Tower
+  - TowerClickable
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: map
+    uniqueID: 1129416231
+    locked: 0
+  - name: Enemy
+    uniqueID: 3030080781
+    locked: 0
+  - name: props
+    uniqueID: 2226770257
+    locked: 0
+  - name: projectile
+    uniqueID: 196293843
+    locked: 0
+  - name: towers
+    uniqueID: 2416988039
+    locked: 0
+  - name: environment
+    uniqueID: 1496579685
+    locked: 0
