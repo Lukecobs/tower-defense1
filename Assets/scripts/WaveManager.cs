@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
     public EnemySpawner enemySpawner;    // Reference to the EnemySpawner
     public float timeBetweenWaves = 5f;  // Time between waves
-    private float waveCountdown;         // Countdown for next wave
+    private float waveCountdown;         // Countdown for the next wave
 
     public Wave[] waves;                 // Array of waves (from Wave.cs)
     private int currentWaveIndex = 0;    // Index of the current wave
@@ -16,9 +17,12 @@ public class WaveManager : MonoBehaviour
 
     public GameManager gameManager;      // Reference to the GameManager for win/lose conditions
 
+    public TextMeshProUGUI waveTimerText; // UI element for the wave timer
+
     void Start()
     {
         waveCountdown = timeBetweenWaves;
+        UpdateTimerUI();
     }
 
     void Update()
@@ -32,6 +36,8 @@ public class WaveManager : MonoBehaviour
         if (!isWaveActive)
         {
             waveCountdown -= Time.deltaTime;
+            UpdateTimerUI(); // Update the UI with the current countdown
+
             if (waveCountdown <= 0f)
             {
                 StartWave();
@@ -64,7 +70,7 @@ public class WaveManager : MonoBehaviour
         isWaveActive = true;
         waveCountdown = timeBetweenWaves;
 
-        // Start spawning enemies for the wave
+        waveTimerText.gameObject.SetActive(false); // Hide the timer during the wave
         StartCoroutine(SpawnWave(currentWave));
     }
 
@@ -100,12 +106,17 @@ public class WaveManager : MonoBehaviour
         Debug.Log("Wave " + (currentWaveIndex + 1) + " complete.");
         currentWaveIndex++;
         isWaveActive = false;
-        waveCountdown = timeBetweenWaves;
 
         if (currentWaveIndex >= waves.Length)
         {
             Debug.Log("All waves completed!");
             gameManager.TriggerVictory(); // Trigger victory condition
+        }
+        else
+        {
+            waveCountdown = timeBetweenWaves;
+            waveTimerText.gameObject.SetActive(true); // Show the timer for the next wave
+            UpdateTimerUI();
         }
     }
 
@@ -127,5 +138,13 @@ public class WaveManager : MonoBehaviour
     {
         enemiesRemainingAlive--;
         Debug.Log("Enemy reached goal. Remaining enemies: " + enemiesRemainingAlive);
+    }
+
+    private void UpdateTimerUI()
+    {
+        if (waveTimerText != null)
+        {
+            waveTimerText.text = $"Next Wave: {Mathf.CeilToInt(waveCountdown)}s";
+        }
     }
 }
